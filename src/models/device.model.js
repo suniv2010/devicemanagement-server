@@ -4,7 +4,7 @@ const DeviceSchema = mongoose.Schema({
     device:String,
     os: String,
     manufacturer: String,
-    lastCheckedOutDate: String,
+    lastCheckedOutDate: Date,
     lastCheckedOutBy: String,
     isCheckedOut: { type: Boolean, default: false }
     
