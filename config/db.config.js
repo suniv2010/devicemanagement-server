@@ -8,4 +8,4 @@ const MONGO_DB = 'devicemangement';
 
 const url = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}/${MONGO_DB}?authSource=admin`;
 
-mongoose.connect(url, {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(url, { useFindAndModify: false, useNewUrlParser: true,useUnifiedTopology: true});

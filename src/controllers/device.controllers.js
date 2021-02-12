@@ -1,6 +1,6 @@
 const Device = require('../models/device.model.js');
 
-// Retrieve and return all users from the database.
+// Retrieve and return all devices from the database.
 exports.findAll = (req, res) => {
     Device.find()
     .then(devices => {
@@ -8,12 +8,12 @@ exports.findAll = (req, res) => {
         res.send(devices);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something went wrong while getting list of users."
+            message: err.message || "Something went wrong while getting list of devices."
         });
     });
 };
 
-// Create and Save a new User
+// Create and Save a new device
 exports.create = (req, res) => {
     // Validate request
   
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         });
     }
 
-    // Create a new User
+    // Create a new device
     const device = new Device({
         device:req.body.device,
         os: req.body.os,
@@ -34,36 +34,36 @@ exports.create = (req, res) => {
         isCheckedOut: req.body.isCheckedOut
     });
 
-    // Save user in the database
+    // Save device in the database
     device.save()
     .then(data => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something went wrong while creating new user."
+            message: err.message || "Something went wrong while creating new device."
         });
     });
 };
 
 
-// Find a single User with a id
+// Find a single device with a id
 exports.findOne = (req, res) => {
     Device.findById(req.params.id)
     .then(device => {
         if(!device) {
             return res.status(404).send({
-                message: "User not found with id " + req.params.id
+                message: "Device not found with id " + req.params.id
             });            
         }
         res.send(device);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "User not found with id " + req.params.id
+                message: "Device not found with id " + req.params.id
             });                
         }
         return res.status(500).send({
-            message: "Error getting user with id " + req.params.id
+            message: "Error getting device with id " + req.params.id
         });
     });
 };
@@ -86,21 +86,22 @@ exports.update = (req, res) => {
         lastCheckedOutBy: req.body.lastCheckedOutBy,
         isCheckedOut: req.body.isCheckedOut
     }, {new: true})
-    .then(device => {
-        if(!device) {
+    .then(response => {
+        //console.log(response)
+        if(!response) {
             return res.status(404).send({
-                message: "user not found with id " + req.params.id
+                message: "device not found with id " + req.params.id
             });
         }
-        res.send(user);
+        res.send(response);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "user not found with id " + req.params.id
+                message: "device not found with id " + req.params.id
             });                
         }
         return res.status(500).send({
-            message: "Error updating user with id " + req.params.id
+            message: "Error updating device with id " + req.params.id
         });
     });
 };
@@ -111,18 +112,18 @@ exports.delete = (req, res) => {
     .then(device => {
         if(!device) {
             return res.status(404).send({
-                message: "user not found with id " + req.params.id
+                message: "device not found with id " + req.params.id
             });
         }
-        res.send({message: "user deleted successfully!"});
+        res.send({message: "device deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "user not found with id " + req.params.id
+                message: "device not found with id " + req.params.id
             });                
         }
         return res.status(500).send({
-            message: "Could not delete user with id " + req.params.id
+            message: "Could not delete device with id " + req.params.id
         });
     });
 };

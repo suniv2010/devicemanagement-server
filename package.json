@@ -1,5 +1,5 @@
 {
-  "name": "node-js-server",
+  "name": "devicemanagement-server",
   "version": "0.3.0",
   "description": "device management",
   "engines": {

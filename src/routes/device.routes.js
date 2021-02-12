@@ -9,7 +9,7 @@ router.get('/', deviceController.findAll);
 // Create a new device
 router.post('/', deviceController.create);
 
-// Retrieve a single user with id
+// Retrieve a single device with id
 router.get('/:id', deviceController.findOne);
 
 // Update a device with id
